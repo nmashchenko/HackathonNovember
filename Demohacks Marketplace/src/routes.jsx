@@ -16,6 +16,7 @@ export const useRoutes = (session) => {
       <Route path="/login" element={<Login session={session} />} />
       <Route path="/platform" element={<Platform session={session} />} />
       <Route path="/statistics" element={<Statistics session={session} />} />
+      <Route path="/" element={<Login session={session} />} />
     </Routes>
   )
 }

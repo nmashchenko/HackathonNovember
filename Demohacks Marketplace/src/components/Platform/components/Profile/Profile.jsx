@@ -34,10 +34,25 @@ function Profile({ handleOpen, user, isLoading }) {
     handleCloseUserMenu()
   }
 
+  const handleAddMoney = async () => {
+    const {
+      data: { user },
+    } = await supabase.auth.getUser()
+
+    console.log(user.user_metadata.user_name)
+
+    const { data, error } = await supabase
+      .from('users')
+      .update({ candy_points: 200 })
+      .eq('username', user.user_metadata.user_name)
+
+    console.log(error)
+  }
+
   // settings
   const settings = [
     { name: 'Sell Candy', function: handleOpen },
-    { name: 'Trade CandyPoints', function: handleOpen },
+    { name: 'Trade CandyPoints', function: handleAddMoney },
     { name: 'Deliveries', function: handleOpen },
   ]
 
