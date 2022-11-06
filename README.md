@@ -34,7 +34,7 @@ We were new to Supabase firbase on which we implemented our data base system.
 New features like dividing candies into categories, messaging system between the seller and buyer.
 
 ## Awards
-Awarded in 2 nominations:
+Awarded in 2 nominations: <br>
 🏆 Develop a program/tool that creates a virtual marketplace and facilitates a safe in-person candy exchange. <br>
 🏆 Best overall - Hackathon winners! <br>
 
