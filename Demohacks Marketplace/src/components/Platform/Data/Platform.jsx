@@ -19,6 +19,7 @@ import banner from '../../../assets/bg2.jpg'
 import Tabs from '../components/Tabs/Tabs'
 import BuyModal from '../components/BuyModal/BuyModal'
 import Profile from '../components/Profile/Profile'
+import PaymentModal from '../components/PaymentModal/PaymentModal'
 
 // * Styles
 import {
@@ -49,11 +50,14 @@ const responsive = {
 function Platform({ session }) {
   const navigate = useNavigate()
   const [open, setOpen] = useState(false)
+  const [openPayment, setOpenPayment] = useState(false)
+
   const [candies, setCandies] = useState([])
   const [ownCandies, setOwnCandies] = useState([])
   const [user, setUser] = useState(null)
   const [isLoading, setIsLoading] = useState(true)
   const [value, setValue] = useState(0)
+  const [currentCandy, setCurrentCandy] = useState({})
 
   // navigate to logout if session is null
   useEffect(() => {
@@ -104,7 +108,14 @@ function Platform({ session }) {
   const handleOpen = () => {
     setOpen(true)
   }
+
+  const handleOpenPayment = () => {
+    setOpenPayment(true)
+  }
+
   const handleClose = () => setOpen(false)
+
+  const handleClosePayment = () => setOpenPayment(false)
 
   const getUpdatedList = async () => {
     const userData = session.user.id
@@ -145,6 +156,14 @@ function Platform({ session }) {
   return (
     <PlatformContainer>
       <BuyModal open={open} handleClose={handleClose} />
+      <PaymentModal
+        openPayment={openPayment}
+        handleClosePayment={handleClosePayment}
+        user={user}
+        currentCandy={currentCandy}
+        isLoading={isLoading}
+      />
+
       <Navbar />
       <PlatformContent>
         <TopContainer>
@@ -185,13 +204,23 @@ function Platform({ session }) {
           {value === 0 ? (
             <Carousel responsive={responsive}>
               {candies.map((candy, i) => (
-                <Card candy={candy} key={i} />
+                <Card
+                  candy={candy}
+                  key={i}
+                  handleOpenPayment={handleOpenPayment}
+                  setCurrentCandy={setCurrentCandy}
+                />
               ))}
             </Carousel>
           ) : (
             <Carousel responsive={responsive}>
               {ownCandies.map((candy, i) => (
-                <Card candy={candy} key={i} />
+                <Card
+                  candy={candy}
+                  key={i}
+                  handleOpenPayment={handleOpenPayment}
+                  setCurrentCandy={setCurrentCandy}
+                />
               ))}
             </Carousel>
           )}

@@ -27,13 +27,7 @@ function createData(name, calories, fat, carbs, protein) {
   return { name, calories, fat, carbs, protein }
 }
 
-const rows = [
-  createData('11 August', 'KitKat', 'why', 'lox', 'WHY me'),
-  // createData('18 August', 'Snickers', 22, 37, 4.3),
-  // createData('8 September', 'Oreo, 16.0, 24, 6.0),
-  // createData('22 September', Twix, 3.7, 67, 4.3),
-  // createData('15 October', Poptarts, 16.0, 49, 3.9),
-]
+const rows = [createData('11 August', 'KitKat', 'why', 'lox', 'WHY me')]
 
 function Stats() {
   return (

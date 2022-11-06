@@ -3,7 +3,12 @@ import { flexbox } from '@mui/system'
 import { BLACK } from '../../constants/colors'
 import { Card, Photo, Row, Snack, Price, Table, SpanText, ButtonItem } from './Card.styles'
 
-function CardUse({ candy }) {
+function CardUse({ candy, handleOpenPayment, setCurrentCandy }) {
+  const handleCardClick = () => {
+    handleOpenPayment()
+    setCurrentCandy(candy)
+  }
+
   return (
     <Card>
       <div>
@@ -17,7 +22,9 @@ function CardUse({ candy }) {
           </Price>
         </Row>
         <Row>
-          <ButtonItem background="#2E2E2E">BUY</ButtonItem>
+          <ButtonItem background="#2E2E2E" onClick={handleCardClick}>
+            BUY
+          </ButtonItem>
           <ButtonItem>OFFER</ButtonItem>
         </Row>
       </Table>
