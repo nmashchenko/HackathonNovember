@@ -32,3 +32,9 @@ We were new to Supabase firbase on which we implemented our data base system.
 
 ## What's next for CandyMarket
 New features like dividing candies into categories, messaging system between the seller and buyer.
+
+## Awards
+Awarded in 2 nominations:
+​ Develop a program/tool that creates a virtual marketplace and facilitates a safe in-person candy exchange.
+​ Best overall - Hackathon winners!
+
