@@ -1,86 +1,99 @@
-import Table from '@mui/material/Table'
-import TableBody from '@mui/material/TableBody'
-import TableCell from '@mui/material/TableCell'
-import TableContainer from '@mui/material/TableContainer'
-import TableHead from '@mui/material/TableHead'
-import TableRow from '@mui/material/TableRow'
-import Paper from '@mui/material/Paper'
-
+import Table from '../components/Table/Table'
 import Navbar from '../components/Navbar/Navbar'
+import Graph from '../components/Graph/Graph'
+import { useState, useEffect } from 'react'
+import { supabase } from '../../../helpers/supabaseServer'
 
 import {
   FirstRow,
   PlatformContainer,
   PlatformContent,
-  Welcome,
+  Text,
   SpanText,
-  RightProfile,
   SecondRow,
   ThirdRow,
-  ForthRow,
-  Photo,
-  LastColumn,
+  GraphContainer,
+  InfoGroup,
 } from './Statistics.styles'
 import Profile from '../components/Profile/Profile'
 
-function createData(name, calories, fat, carbs, protein) {
-  return { name, calories, fat, carbs, protein }
-}
+function Stats({ session }) {
+  const [time, setTime] = useState('')
+  const [amount, setAmount] = useState(0)
+  const [item, setItem] = useState('')
 
-const rows = [createData('11 August', 'KitKat', 'why', 'lox', 'WHY me')]
+  let spending = 0 - amount
 
-function Stats() {
+  useEffect(() => {
+    const fetchData = async () => {
+      const {
+        data: { user },
+      } = await supabase.auth.getUser()
+
+      /* Getting the current user from the database. */
+      let { data: curUser } = await supabase
+        .from('users')
+        .select('*')
+        .match({ username: user.user_metadata.user_name })
+
+      let gotUser = curUser[0]
+
+      let { data: purchaseInfo } = await supabase
+        .from('payments')
+        .select('*')
+        .match({ customer_id: gotUser.id })
+
+      let date = new Date(purchaseInfo[0].created_at)
+      let dateFormat = date.getHours() + ':' + date.getMinutes() + ', ' + date.toDateString()
+
+      setTime(dateFormat)
+      setAmount(purchaseInfo[0].price)
+
+      let { data: itemInfo } = await supabase
+        .from('candies')
+        .select('*')
+        .match({ id: purchaseInfo[0].item_id })
+
+      setItem(itemInfo[0].name)
+    }
+
+    fetchData()
+  }, [])
+
   return (
     <PlatformContainer>
       <Navbar />
       <PlatformContent>
         <FirstRow>
-          <Welcome>Welcome,</Welcome>
-          <SpanText> ZXC</SpanText> <Welcome>!</Welcome>
-          <RightProfile>{/* <Profile /> */}</RightProfile>
+          <Text margin="75px 0 0 0">
+            Welcome, <SpanText> Nikita</SpanText>!
+          </Text>
         </FirstRow>
         <SecondRow>
-          <SpanText>Transaction History:</SpanText>
+          <Text color="white" fontWeight="300" fontSize="23px" margin="20px 0 10px 0">
+            Transaction History:
+          </Text>
         </SecondRow>
         <ThirdRow>
-          <TableContainer component={Paper}>
-            <Table sx={{ minWidth: 650 }} aria-label="simple table">
-              <TableHead>
-                <TableRow>
-                  <TableCell>Date</TableCell>
-                  <TableCell>Candy</TableCell>
-                  <TableCell>Price</TableCell>
-                  <TableCell>Seller</TableCell>
-                  <TableCell>Protein</TableCell>
-                </TableRow>
-              </TableHead>
-              <TableBody>
-                {rows.map((row) => (
-                  <TableRow
-                    key={row.name}
-                    sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
-                  >
-                    <TableCell component="th" scope="row">
-                      {row.name}
-                    </TableCell>
-                    <TableCell align="right">{row.calories}</TableCell>
-                    <TableCell align="right">{row.fat}</TableCell>
-                    <TableCell align="right">{row.carbs}</TableCell>
-                    <TableCell align="right">{row.protein}</TableCell>
-                  </TableRow>
-                ))}
-              </TableBody>
-            </Table>
-          </TableContainer>
+          <Table time={time} amount={amount} item={item} />
         </ThirdRow>
-        <ForthRow>
-          <Photo src="https://res.cloudinary.com/dyd911kmh/image/upload/f_auto,q_auto:best/v1511859326/plot_6_jolcli.png"></Photo>
-          <LastColumn>
-            <Welcome>You spend: </Welcome>
-            <Welcome>You earned: </Welcome>
-            <Welcome>Current balance: </Welcome>
-          </LastColumn>
-        </ForthRow>
+        <GraphContainer>
+          <Graph time={time} amount={amount} item={item} />
+          <InfoGroup>
+            <Text>
+              Your spending: <SpanText>{amount} CP</SpanText>
+            </Text>
+            <Text>
+              Your earnings: <SpanText>0 CP</SpanText>
+            </Text>
+            <Text>
+              Total difference:<SpanText color="#E15656">{spending} CP</SpanText>
+            </Text>
+            <Text>
+              Financial score: <SpanText color="#E15656">Negative</SpanText>
+            </Text>
+          </InfoGroup>
+        </GraphContainer>
       </PlatformContent>
     </PlatformContainer>
   )

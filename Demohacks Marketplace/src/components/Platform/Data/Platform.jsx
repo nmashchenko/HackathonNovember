@@ -176,7 +176,7 @@ function Platform({ session }) {
               sx={{ p: '10px' }}
               aria-label="search"
               onClick={() => {
-                console.log('хуй')
+                console.log('Implement if have time!')
               }}
             >
               <SearchIcon />
