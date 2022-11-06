@@ -1,4 +1,4 @@
-# CandyMarket - marketplace for candies exchange
+# ✨CandyMarket - marketplace for candies exchange
 ## How to set up
 ### First clone the project
 `git clone https://github.com/exortme1ster/HackathonNovember.git`
@@ -11,6 +11,11 @@
 ### Open browser with the following url:
 `http://localhost:8080`
 
+## Awards
+Awarded in 2 nominations: <br>
+
+🏆 Develop a program/tool that creates a virtual marketplace and facilitates a safe in-person candy exchange. <br>
+🏆 Best overall - Hackathon winners! <br>
 
 ## Inspiration
 We took inspiration from various marketplaces and combined it with Halloween theme.
@@ -32,10 +37,5 @@ We were new to Supabase firbase on which we implemented our data base system.
 
 ## What's next for CandyMarket
 New features like dividing candies into categories, messaging system between the seller and buyer.
-
-## Awards
-Awarded in 2 nominations: <br>
-🏆 Develop a program/tool that creates a virtual marketplace and facilitates a safe in-person candy exchange. <br>
-🏆 Best overall - Hackathon winners! <br>
 
 
