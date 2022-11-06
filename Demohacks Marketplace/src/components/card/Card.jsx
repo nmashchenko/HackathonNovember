@@ -12,7 +12,7 @@ function CardUse({ candy, handleOpenPayment, setCurrentCandy }) {
   return (
     <Card>
       <div>
-        <Photo src="https://m.media-amazon.com/images/I/81NrXdOXZsL.jpg"></Photo>
+        <Photo src="https://m.media-amazon.com/images/I/91BUrf--A3L.jpg"></Photo>
       </div>
       <Table>
         <Row>
