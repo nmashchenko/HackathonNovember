@@ -1,8 +1,6 @@
 ## How to set up
 First clone the project
-```git clone
-```
-
+`git clone https://github.com/exortme1ster/HackathonNovember.git`
 
 ## Inspiration
 We took inspiration from various marketplaces and combined it with Halloween theme.
