@@ -5,34 +5,23 @@ import { Card, Photo, Row, Snack, Price, Table, SpanText, ButtonItem } from './C
 
 function CardUse() {
   return (
-    <div
-      style={{
-        backgroundColor: 'blue',
-        width: '100%',
-        height: '100vh',
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center',
-      }}
-    >
-      <Card>
-        <div>
-          <Photo src="https://m.media-amazon.com/images/I/81NrXdOXZsL.jpg"></Photo>
-        </div>
-        <Table>
-          <Row>
-            <Snack>Snickers:</Snack>
-            <Price>
-              250 <SpanText> CP</SpanText>
-            </Price>
-          </Row>
-          <Row>
-            <ButtonItem background="#2E2E2E">Buy</ButtonItem>
-            <ButtonItem>Offer</ButtonItem>
-          </Row>
-        </Table>
-      </Card>
-    </div>
+    <Card>
+      <div>
+        <Photo src="https://m.media-amazon.com/images/I/81NrXdOXZsL.jpg"></Photo>
+      </div>
+      <Table>
+        <Row>
+          <Snack>Snickers:</Snack>
+          <Price>
+            250 <SpanText> CP</SpanText>
+          </Price>
+        </Row>
+        <Row>
+          <ButtonItem background="#2E2E2E">BUY</ButtonItem>
+          <ButtonItem>OFFER</ButtonItem>
+        </Row>
+      </Table>
+    </Card>
   )
 }
 

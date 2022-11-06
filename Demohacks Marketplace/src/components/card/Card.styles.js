@@ -3,12 +3,13 @@ import styled from 'styled-components'
 export const Card = styled.div`
   background-color: white;
   width: 232px;
-  height: 303px;
+  height: 330px;
   display: flex;
   flex-direction: column;
-  justify-content: flex-start;
+  justify-content: space-evenly;
   align-items: center;
   border-radius: 25px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 `
 export const Row = styled.div`
   width: 100%;
@@ -44,7 +45,7 @@ export const Table = styled.div`
   padding: 10px;
   flex-direction: column;
   gap: 10px;
-  justify-content: flex-start;
+  justify-content: space-between;
   align-items: center;
 `
 export const ButtonItem = styled.button`
@@ -56,6 +57,14 @@ export const ButtonItem = styled.button`
   border: 2px solid BLACK;
   border-radius: 10px;
   background: ${(props) => props.background || 'none'};
+  cursor: pointer;
+
+  &:hover {
+    transition: all 0.15s;
+    -webkit-transform: scale(1.05);
+    -ms-transform: scale(1.05);
+    transform: scale(1.05);
+  }
 `
 export const SpanText = styled.span`
   padding: 5px;

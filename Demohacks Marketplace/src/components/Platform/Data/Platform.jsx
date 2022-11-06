@@ -1,9 +1,9 @@
 // * Modules
 import { useState, useEffect } from 'react'
-import { supabase } from '../../helpers/supabaseServer'
+import { supabase } from '../../../helpers/supabaseServer'
 import { useNavigate } from 'react-router-dom'
 import isEmpty from 'lodash/isEmpty'
-import Navbar from './components/Navbar/Navbar'
+import Navbar from '../components/Navbar/Navbar'
 import Paper from '@mui/material/Paper'
 import InputBase from '@mui/material/InputBase'
 import IconButton from '@mui/material/IconButton'
@@ -13,12 +13,17 @@ import Box from '@mui/material/Box'
 import Typography from '@mui/material/Typography'
 import Menu from '@mui/material/Menu'
 import MenuItem from '@mui/material/MenuItem'
+import Card from '../../Card/Card'
+import Carousel from 'react-multi-carousel'
+import 'react-multi-carousel/lib/styles.css'
 
 // * Assets
-import banner from '../../assets/bg2.jpg'
+import banner from '../../../assets/bg2.jpg'
 
 // * Components
-import Tabs from './components/Tabs/Tabs'
+import Tabs from '../components/Tabs/Tabs'
+import BuyModal from '../components/BuyModal/BuyModal'
+import Profile from '../components/Profile/Profile'
 
 // * Styles
 import {
@@ -31,14 +36,24 @@ import {
   BgImage,
   TextOnTopContainer,
   SwitchContainer,
+  CardsContainer,
 } from './Platform.styles'
 
-// settings
-const settings = ['Add CandyPoints', 'Sell CandyPoints', 'Wiew Candies']
+const responsive = {
+  superLargeDesktop: {
+    // the naming can be any, depends on you.
+    breakpoint: { max: 4000, min: 3000 },
+    items: 5,
+  },
+  desktop: {
+    breakpoint: { max: 3000, min: 1024 },
+    items: 3,
+  },
+}
 
 function Platform({ session }) {
   const navigate = useNavigate()
-  const [anchorElUser, setAnchorElUser] = useState(null)
+  const [open, setOpen] = useState(false)
 
   // navigate to logout if session is null
   useEffect(() => {
@@ -70,20 +85,21 @@ function Platform({ session }) {
     findAndAddUser()
   }, [])
 
-  const handleLogOut = async () => {
-    const { error } = await supabase.auth.signOut()
+  const handleOpen = () => {
+    setOpen(true)
   }
+  const handleClose = () => setOpen(false)
 
-  const handleOpenUserMenu = (event) => {
-    setAnchorElUser(event.currentTarget)
-  }
-
-  const handleCloseUserMenu = () => {
-    setAnchorElUser(null)
-  }
+  // settings
+  const settings = [
+    { name: 'Sell Candy', function: handleOpen },
+    { name: 'Trade CandyPoints', function: handleOpen },
+    { name: 'Deliveries', function: handleOpen },
+  ]
 
   return (
     <PlatformContainer>
+      <BuyModal open={open} handleClose={handleClose} />
       <Navbar />
       <PlatformContent>
         <TopContainer>
@@ -107,44 +123,7 @@ function Platform({ session }) {
               inputProps={{ 'aria-label': 'search google maps' }}
             />
           </Paper>
-          <Box sx={{ flexGrow: 0 }}>
-            <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-              <AccountCircleIcon sx={{ fontSize: '52px', color: 'white' }} />
-            </IconButton>
-            <Menu
-              sx={{ mt: '55px' }}
-              id="menu-appbar"
-              anchorEl={anchorElUser}
-              anchorOrigin={{
-                vertical: 'top',
-                horizontal: 'center',
-              }}
-              keepMounted
-              transformOrigin={{
-                vertical: 'top',
-                horizontal: 'center',
-              }}
-              open={Boolean(anchorElUser)}
-              onClose={handleCloseUserMenu}
-            >
-              <MenuItem key="Name" disabled>
-                <Text fontWeight="bold">Nikita Mashchenko</Text>
-              </MenuItem>
-              <MenuItem key="Balance" disabled>
-                <Text fontWeight="bold">
-                  Balance: <SpanText>24 CP</SpanText>
-                </Text>
-              </MenuItem>
-              {settings.map((setting) => (
-                <MenuItem key={setting} onClick={handleCloseUserMenu}>
-                  <Text>{setting}</Text>
-                </MenuItem>
-              ))}
-              <MenuItem key="Logout" onClick={handleLogOut}>
-                <Typography textAlign="center">Logout</Typography>
-              </MenuItem>
-            </Menu>
-          </Box>
+          <Profile handleOpen={handleOpen} />
         </TopContainer>
         <PosterContainer>
           <BgImage src={banner}></BgImage>
@@ -157,6 +136,19 @@ function Platform({ session }) {
         <SwitchContainer>
           <Tabs />
         </SwitchContainer>
+        <CardsContainer>
+          <Carousel responsive={responsive}>
+            <Card />
+            <Card />
+            <Card />
+            <Card />
+            <Card />
+            <Card />
+            <Card />
+            <Card />
+            <Card />
+          </Carousel>
+        </CardsContainer>
       </PlatformContent>
     </PlatformContainer>
   )

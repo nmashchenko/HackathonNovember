@@ -1,7 +1,7 @@
 // * Modules
 import styled from 'styled-components'
 
-import { BLACK } from '../../constants/colors'
+import { BLACK } from '../../../constants/colors'
 
 export const PlatformContainer = styled.div`
   min-height: 100vh;
@@ -12,7 +12,7 @@ export const PlatformContainer = styled.div`
 
 export const PlatformContent = styled.div`
   min-height: 100vh;
-  width: 100%;
+  width: calc(100% - 98px);
   display: flex;
   flex-direction: column;
 `
@@ -59,6 +59,10 @@ export const TextOnTopContainer = styled.div`
 `
 
 export const SwitchContainer = styled.div`
-  width: 100%;
+  width: calc(100% - 98px);
   margin: 50px 0 0 40px;
+`
+
+export const CardsContainer = styled.div`
+  margin-left: 110px;
 `
