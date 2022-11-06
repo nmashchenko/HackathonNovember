@@ -35,6 +35,8 @@ New features like dividing candies into categories, messaging system between the
 
 ## Awards
 Awarded in 2 nominations:
-​ Develop a program/tool that creates a virtual marketplace and facilitates a safe in-person candy exchange.
-​ Best overall - Hackathon winners!
+🏆 Develop a program/tool that creates a virtual marketplace and facilitates a safe in-person candy exchange.
+
+🏆 Best overall - Hackathon winners!
+
 
