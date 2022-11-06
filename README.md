@@ -1,13 +1,14 @@
+# CandyMarket - marketplace for candies exchange
 ## How to set up
-First clone the project
+### First clone the project
 `git clone https://github.com/exortme1ster/HackathonNovember.git`
-Move to Demohacks Marketplace folder
+### Move to Demohacks Marketplace folder
 `cd '.\HackathonNovember\Demohacks Marketplace\'`
-Install all the dependencies
+### Install all the dependencies
 `npm install`
-Run the application
+### Run the application
 `npm run dev`
-Open browser with the following url:
+### Open browser with the following url:
 `http://localhost:8080`
 
 
