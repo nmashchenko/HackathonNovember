@@ -5,7 +5,7 @@ import { Routes, Route, Navigate } from 'react-router-dom'
 
 // * Screens
 import Login from './components/Login/Login'
-import Platform from './components/Platform'
+import Platform from './components/Platform/Platform'
 
 // * Constants
 
