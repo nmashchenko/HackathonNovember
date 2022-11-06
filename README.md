@@ -1,4 +1,11 @@
 # ✨CandyMarket - marketplace for candies exchange
+
+## Awards
+Awarded in 2 nominations: <br>
+
+🏆 Develop a program/tool that creates a virtual marketplace and facilitates a safe in-person candy exchange. <br>
+🏆 Best overall - Hackathon winners! <br>
+
 ## How to set up
 ### First clone the project
 `git clone https://github.com/exortme1ster/HackathonNovember.git`
@@ -10,12 +17,6 @@
 `npm run dev`
 ### Open browser with the following url:
 `http://localhost:8080`
-
-## Awards
-Awarded in 2 nominations: <br>
-
-🏆 Develop a program/tool that creates a virtual marketplace and facilitates a safe in-person candy exchange. <br>
-🏆 Best overall - Hackathon winners! <br>
 
 ## Inspiration
 We took inspiration from various marketplaces and combined it with Halloween theme.
