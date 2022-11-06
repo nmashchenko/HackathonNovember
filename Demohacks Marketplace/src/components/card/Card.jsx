@@ -3,7 +3,7 @@ import { flexbox } from '@mui/system'
 import { BLACK } from '../../constants/colors'
 import { Card, Photo, Row, Snack, Price, Table, SpanText, ButtonItem } from './Card.styles'
 
-function CardUse() {
+function CardUse({ candy }) {
   return (
     <Card>
       <div>
@@ -11,9 +11,9 @@ function CardUse() {
       </div>
       <Table>
         <Row>
-          <Snack>Snickers:</Snack>
+          <Snack>{candy.name}</Snack>
           <Price>
-            250 <SpanText> CP</SpanText>
+            {candy.price} <SpanText> CP</SpanText>
           </Price>
         </Row>
         <Row>

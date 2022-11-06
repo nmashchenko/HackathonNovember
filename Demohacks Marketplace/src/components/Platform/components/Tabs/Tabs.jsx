@@ -33,13 +33,7 @@ const StyledTab = styled((props) => <Tab disableRipple {...props} />)(({ theme }
   },
 }))
 
-export default function CustomizedTabs() {
-  const [value, setValue] = useState(0)
-
-  const handleChange = (event, newValue) => {
-    setValue(newValue)
-  }
-
+export default function CustomizedTabs({ handleChange, value }) {
   return (
     <Box sx={{ width: '100%' }}>
       <Box>

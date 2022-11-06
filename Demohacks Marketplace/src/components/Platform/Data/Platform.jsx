@@ -8,11 +8,6 @@ import Paper from '@mui/material/Paper'
 import InputBase from '@mui/material/InputBase'
 import IconButton from '@mui/material/IconButton'
 import SearchIcon from '@mui/icons-material/Search'
-import AccountCircleIcon from '@mui/icons-material/AccountCircle'
-import Box from '@mui/material/Box'
-import Typography from '@mui/material/Typography'
-import Menu from '@mui/material/Menu'
-import MenuItem from '@mui/material/MenuItem'
 import Card from '../../Card/Card'
 import Carousel from 'react-multi-carousel'
 import 'react-multi-carousel/lib/styles.css'
@@ -54,26 +49,45 @@ const responsive = {
 function Platform({ session }) {
   const navigate = useNavigate()
   const [open, setOpen] = useState(false)
+  const [candies, setCandies] = useState([])
+  const [ownCandies, setOwnCandies] = useState([])
+  const [user, setUser] = useState(null)
+  const [isLoading, setIsLoading] = useState(true)
+  const [value, setValue] = useState(0)
 
   // navigate to logout if session is null
   useEffect(() => {
     if (!session) {
       navigate('/login', { replace: true })
+    } else {
+      const channel = supabase
+        .channel('schema-db-changes')
+        .on('postgres_changes', { event: '*', schema: 'public' }, (payload) => {
+          getUpdatedList()
+        })
+        .subscribe()
     }
   }, [session, navigate])
 
   useEffect(() => {
     const findAndAddUser = async () => {
       const userData = session.user.user_metadata
-      console.log(userData)
+
+      await getUpdatedList()
+
+      setIsLoading(true)
 
       let { data: users, error } = await supabase
         .from('users')
-        .select('username')
+        .select('*')
         .match({ username: userData.preferred_username })
 
+      console.log(users)
+      setUser(users[0])
+
+      setIsLoading(false)
+
       if (isEmpty(users)) {
-        console.log('hello world')
         const { data, error } = await supabase
           .from('users')
           .insert([
@@ -85,10 +99,40 @@ function Platform({ session }) {
     findAndAddUser()
   }, [])
 
+  // Setup listener for supabase realtime API for updates to the service requests
+
   const handleOpen = () => {
     setOpen(true)
   }
   const handleClose = () => setOpen(false)
+
+  const getUpdatedList = async () => {
+    let { data: candies } = await supabase.from('candies').select('*')
+
+    const filtered = candies.filter((candy) => candy.issold === false)
+
+    console.log(filtered)
+
+    setCandies(filtered)
+  }
+
+  const handleChange = async (event, newValue) => {
+    setValue(newValue)
+    const userData = session.user.id
+
+    if (newValue === 1) {
+      let { data: candies, error } = await supabase
+        .from('candies')
+        .select('*')
+        .match({ user_id: userData, issold: false })
+
+      console.log(candies)
+
+      if (!isEmpty(candies)) {
+        setOwnCandies(candies)
+      }
+    }
+  }
 
   // settings
   const settings = [
@@ -123,7 +167,7 @@ function Platform({ session }) {
               inputProps={{ 'aria-label': 'search google maps' }}
             />
           </Paper>
-          <Profile handleOpen={handleOpen} />
+          <Profile handleOpen={handleOpen} user={user} isLoading={isLoading} />
         </TopContainer>
         <PosterContainer>
           <BgImage src={banner}></BgImage>
@@ -134,20 +178,22 @@ function Platform({ session }) {
           </TextOnTopContainer>
         </PosterContainer>
         <SwitchContainer>
-          <Tabs />
+          <Tabs handleChange={handleChange} value={value} />
         </SwitchContainer>
         <CardsContainer>
-          <Carousel responsive={responsive}>
-            <Card />
-            <Card />
-            <Card />
-            <Card />
-            <Card />
-            <Card />
-            <Card />
-            <Card />
-            <Card />
-          </Carousel>
+          {value === 0 ? (
+            <Carousel responsive={responsive}>
+              {candies.map((candy, i) => (
+                <Card candy={candy} key={i} />
+              ))}
+            </Carousel>
+          ) : (
+            <Carousel responsive={responsive}>
+              {ownCandies.map((candy, i) => (
+                <Card candy={candy} key={i} />
+              ))}
+            </Carousel>
+          )}
         </CardsContainer>
       </PlatformContent>
     </PlatformContainer>

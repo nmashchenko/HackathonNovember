@@ -43,9 +43,7 @@ function Stats() {
         <FirstRow>
           <Welcome>Welcome,</Welcome>
           <SpanText> ZXC</SpanText> <Welcome>!</Welcome>
-          <RightProfile>
-            <Profile />
-          </RightProfile>
+          <RightProfile>{/* <Profile /> */}</RightProfile>
         </FirstRow>
         <SecondRow>
           <SpanText>Transaction History:</SpanText>

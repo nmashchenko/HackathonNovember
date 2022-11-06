@@ -14,8 +14,9 @@ import { Text, SpanText } from '../../../Platform/Data/Platform.styles'
 // settings
 const settings = ['Add CandyPoints', 'Sell CandyPoints', 'Wiew Candies']
 
-function Profile({ handleOpen }) {
+function Profile({ handleOpen, user, isLoading }) {
   const [anchorElUser, setAnchorElUser] = useState(null)
+
   const handleLogOut = async () => {
     const { error } = await supabase.auth.signOut()
   }
@@ -62,12 +63,20 @@ function Profile({ handleOpen }) {
         onClose={handleCloseUserMenu}
       >
         <MenuItem key="Name" disabled>
-          <Text fontWeight="bold">Nikita Mashchenko</Text>
+          {isLoading ? (
+            <Text fontWeight="bold">Loading...</Text>
+          ) : (
+            <Text fontWeight="bold">{user.username}</Text>
+          )}
         </MenuItem>
         <MenuItem key="Balance" disabled>
-          <Text fontWeight="bold">
-            Balance: <SpanText>24 CP</SpanText>
-          </Text>
+          {isLoading ? (
+            <Text fontWeight="bold">Loading...</Text>
+          ) : (
+            <Text fontWeight="bold">
+              Balance: <SpanText>{user.candy_points} CP</SpanText>
+            </Text>
+          )}
         </MenuItem>
         {settings.map((setting) => (
           <MenuItem key={setting.name} onClick={() => handleOpenClose(setting.function)}>
