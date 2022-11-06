@@ -107,9 +107,10 @@ function Platform({ session }) {
   const handleClose = () => setOpen(false)
 
   const getUpdatedList = async () => {
-    let { data: candies } = await supabase.from('candies').select('*')
+    const userData = session.user.id
+    let { data: candies } = await supabase.from('candies').select('*').match({ issold: false })
 
-    const filtered = candies.filter((candy) => candy.issold === false)
+    const filtered = candies.filter((candy) => candy.user_id !== userData)
 
     console.log(filtered)
 
