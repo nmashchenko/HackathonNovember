@@ -30,6 +30,8 @@ The frontend of the platform is implemented with ReactJS while the backend
 ## Challenges we ran into
 During coding we run into several challenges. The biggest problems occurred during the implementation of database and trading systems.
 
+Implementation of realtime API that was needed to track recent purchases (whenever one user adds/purchases an item it should appear/disappear for everyone on platform)
+
 ## Accomplishments that we're proud of
 We really like the design that we come up with, and we proud of how easy to use is user interface.
 
